@@ -18,7 +18,8 @@ function useGetQuest() {
                 }
             });
         },
-        enabled: req
+        enabled: req,
+        cacheTime: 0
     });
 
     const questions = query.data?.data.results;
