@@ -1,4 +1,4 @@
-import { useAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import { questionsListAtom } from "../store/questions";
 import { calculateAnswer, calculateFalseAnswer, calculateFilled } from "../utils/calculateAnswer";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { reqAtom } from "../store/enable";
 
 function EndQuiz() {
   const [questionsList, setQuestionsListAtom] = useAtom(questionsListAtom);
-  const [, setReq] = useAtom(reqAtom);
+  const setReq = useSetAtom(reqAtom);
   const navigate = useNavigate();
   const backMenuHandler = () => {
     setReq(false);
