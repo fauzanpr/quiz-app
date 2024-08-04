@@ -1,7 +1,8 @@
-function App() {
-  return (
-    <div className="text-red-500">Hello World</div>
-  )
-}
+// import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// import { router } from "./router";
 
-export default App;
+// function App() {
+//   return <RouterProvider  />
+// }
+
+// export default App;
