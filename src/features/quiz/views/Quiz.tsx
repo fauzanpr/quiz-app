@@ -3,7 +3,7 @@ import Timer from "../../_global/components/Timer"
 import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
 import { questionsListAtom } from "../store/questions";
-import { calculateAnswer, calculateFilled } from "../utils/calculateAnswer";
+import { calculateFilled } from "../utils/calculateAnswer";
 
 function Quiz() {
   const { id } = useParams();
@@ -27,6 +27,11 @@ function Quiz() {
         question.no === no ? { ...question, answer: ans } : question
       )
     );
+    if (questionsList) {
+      if (Number(id) < questionsList?.length) {
+        navigate(`/quiz/${Number(id) + 1}`)
+      }
+    }
   };
 
   // will check resume quiz
@@ -40,9 +45,9 @@ function Quiz() {
 
       {/* for displaying number navigation */}
       <div className="grid grid-cols-10 gap-4 mt-8">
-        {questionsList?.map((_q, i) => i+1).map(num => <button className={`rounded-lg ${questionsList[num-1].no === Number(id) ? "bg-blue-300" : questionsList[num-1]?.answer ? "bg-green-300" : "bg-gray-200"}`} onClick={() => changeNumHandler(num)}>{num}</button>)}
+        {questionsList?.map((_q, i) => i + 1).map(num => <button className={`rounded-lg ${questionsList[num - 1].no === Number(id) ? "bg-blue-300" : questionsList[num - 1]?.answer ? "bg-green-300" : "bg-gray-200"}`} onClick={() => changeNumHandler(num)}>{num}</button>)}
       </div>
-      <p>Terjawab: { calculateFilled(questionsList || []) } dari { questionsList?.length }</p>
+      <p>Terjawab: {calculateFilled(questionsList || [])} dari {questionsList?.length}</p>
 
       {/* for displaying quiz */}
       <div className="flex flex-col gap-4">
@@ -51,14 +56,14 @@ function Quiz() {
           {questionsList && <p dangerouslySetInnerHTML={{ __html: questionsList[Number(id) - 1]?.question }} className="text-lg" />}
         </div>
         <div className="flex items-center gap-2 text-lg">
-          <input type="radio" checked={questionsList && questionsList[Number(id)-1].answer === "True" ? true : false} name="ans" className="size-4 cursor-pointer" onClick={() => answerHandler(Number(id), "True")} />
+          <input type="radio" checked={questionsList && questionsList[Number(id) - 1].answer === "True" ? true : false} name="ans" className="size-4 cursor-pointer" onClick={() => answerHandler(Number(id), "True")} />
           <p>True</p>
         </div>
         <div className="flex items-center gap-2 text-lg">
-          <input type="radio" name="ans" checked={questionsList && questionsList[Number(id)-1].answer === "False" ? true : false} className="size-4 cursor-pointer" onClick={() => answerHandler(Number(id), "False")} />
+          <input type="radio" name="ans" checked={questionsList && questionsList[Number(id) - 1].answer === "False" ? true : false} className="size-4 cursor-pointer" onClick={() => answerHandler(Number(id), "False")} />
           <p>False</p>
         </div>
-        { Number(id) === 10 ? <button className="bg-blue-600 text-white p-2 hover:bg-blue-700" onClick={submitHandler}>Submit</button> : null }
+        {Number(id) === 10 ? <button className="bg-blue-600 text-white p-2 hover:bg-blue-700" onClick={submitHandler}>Submit</button> : null}
       </div>
     </div>
   )
