@@ -14,6 +14,8 @@ function EndQuiz() {
     setReq(false);
     setQuestionsListAtom([]);
     setTimer(10);
+    localStorage.removeItem("ans");
+    localStorage.removeItem("timer");
     navigate("/app");
   };
   return (

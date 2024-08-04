@@ -10,6 +10,7 @@ function Timer() {
         const interval = setInterval(() => {
             if (timer > 0) {
                 setTimer(prev => prev - 1);
+                localStorage.setItem("timer", timer.toString());
             } else {
                 navigate("/end");
             }

@@ -17,6 +17,14 @@ function LandingQuiz() {
         setReqAtom(true);
     }
 
+    const continueButtonHandler = () => {
+        setQuestionsListAtom(JSON.parse(localStorage.getItem("ans") || ""));
+        if (questionsList) {
+            setTimerAtom(Number(localStorage.getItem("timer")) || timer);
+            navigate("/quiz/1");
+        }
+    }
+
     useEffect(() => {
         setQuestionsListAtom([]);
         if (response === 0) {
@@ -37,7 +45,8 @@ function LandingQuiz() {
             toast.error("Session telah berakhir, silakan login ulang");
             navigate("/");
         }
-    }, [isSuccess, navigate, questions, response, setQuestionsListAtom, setReqAtom])
+    }, [isSuccess, navigate, questions, response, setQuestionsListAtom, setReqAtom]);
+
     return (
         <div className="bg-gray-50 w-1/3 mx-auto my-4 p-4 flex flex-col gap-4 text-center">
             <p>Bersedia mulai kuis?</p>
@@ -46,6 +55,7 @@ function LandingQuiz() {
                 <input type="number" value={timer} onChange={e => setTimerAtom(Number(e.target.value))} className="border p-2" />
             </div>
             <button className="bg-blue-700 text-white w-fit px-8 py-2 rounded-lg mx-auto" onClick={startButtonHandler}>{isLoading ? "Memuat soal..." : "Mulai"}</button>
+            {localStorage.getItem("ans") ? <button className="bg-green-700 text-white w-fit px-8 py-2 rounded-lg mx-auto" onClick={continueButtonHandler}>Lanjut Kuis Sebelumnya</button> : null}
         </div>
     )
 }

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Timer from "../../_global/components/Timer"
 import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
@@ -9,9 +8,6 @@ function Quiz() {
   const { id } = useParams();
   const [questionsList, setQuestionsListAtom] = useAtom(questionsListAtom);
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(questionsList);
-  }, [questionsList]);
 
   const changeNumHandler = (num: number) => {
     navigate(`/quiz/${num}`);
@@ -19,6 +15,7 @@ function Quiz() {
 
   const submitHandler = () => {
     navigate("/end");
+    localStorage.removeItem("ans");
   }
 
   const answerHandler = (no: number, ans: string) => {
@@ -27,9 +24,9 @@ function Quiz() {
         question.no === no ? { ...question, answer: ans } : question
       )
     );
-    localStorage.setItem("ans", JSON.stringify(questionsList));
     if (questionsList) {
       if (Number(id) < questionsList?.length) {
+        localStorage.setItem("ans", JSON.stringify(questionsList));
         navigate(`/quiz/${Number(id) + 1}`)
       }
     }
@@ -43,7 +40,6 @@ function Quiz() {
   return (
     <div className="bg-gray-50 w-1/3 mx-auto my-4 p-4 flex flex-col gap-4">
       <Timer />
-
       {/* for displaying number navigation */}
       <div className="grid grid-cols-10 gap-4 mt-8">
         {questionsList?.map((_q, i) => i + 1).map(num => <button className={`rounded-lg ${questionsList[num - 1].no === Number(id) ? "bg-blue-300" : questionsList[num - 1]?.answer ? "bg-green-300" : "bg-gray-200"}`} onClick={() => changeNumHandler(num)}>{num}</button>)}
