@@ -18,8 +18,7 @@ function Quiz() {
   };
 
   const submitHandler = () => {
-    const result = calculateAnswer(questionsList || []);
-    alert(result);
+    navigate("/end");
   }
 
   const answerHandler = (no: number, ans: string) => {
