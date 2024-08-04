@@ -1,0 +1,1 @@
+export type RESPONSE_CODE_TYPE = 0 | 1 | 2 | 3 | 4 | 5;
