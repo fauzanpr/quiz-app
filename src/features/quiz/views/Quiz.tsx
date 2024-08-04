@@ -3,19 +3,21 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
 import { questionsListAtom } from "../store/questions";
 import { calculateFilled } from "../utils/calculateAnswer";
+import { DialogConfirmation } from "@/features/quiz/components/DialogConfirmation";
+import { useState } from "react";
 
 function Quiz() {
   const { id } = useParams();
   const [questionsList, setQuestionsListAtom] = useAtom(questionsListAtom);
   const navigate = useNavigate();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const changeNumHandler = (num: number) => {
     navigate(`/quiz/${num}`);
   };
 
   const submitHandler = () => {
-    navigate("/end");
-    localStorage.removeItem("ans");
+    setIsDialogOpen(true);
   }
 
   const answerHandler = (no: number, ans: string) => {
@@ -39,6 +41,7 @@ function Quiz() {
 
   return (
     <div className="bg-gray-50 w-1/3 mx-auto my-4 p-4 flex flex-col gap-4">
+      <DialogConfirmation isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} />
       <Timer />
       {/* for displaying number navigation */}
       <div className="grid grid-cols-10 gap-4 mt-8">
