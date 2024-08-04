@@ -1,6 +1,12 @@
+import { useEffect } from "react";
 import Timer from "../../_global/components/Timer"
+import { questionsList } from "../utils/question";
 
 function Quiz() {
+  useEffect(() => {
+    console.log(questionsList);
+  }, []);
+  
   // will check resume quiz
   if (localStorage.getItem("previous-quiz")) {
     return <></>
@@ -21,7 +27,7 @@ function Quiz() {
       <div className="flex flex-col gap-4">
         <div>
           <p className="font-medium underline">Soal 1/10</p>
-          <p className="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat reiciendis eos tempora eius itaque et perspiciatis voluptatem in, omnis officiis repudiandae odit autem id ea ratione consectetur possimus excepturi recusandae?</p>
+          <p className="text-lg">{questionsList[0]?.question}</p>
         </div>
         <div className="flex items-center gap-2 text-lg">
           <input type="radio" name="ans" className="size-4" />
