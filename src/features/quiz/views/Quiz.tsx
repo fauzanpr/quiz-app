@@ -3,6 +3,7 @@ import Timer from "../../_global/components/Timer"
 import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
 import { questionsListAtom } from "../store/questions";
+import { calculateAnswer } from "../utils/calculateAnswer";
 
 function Quiz() {
   const { id } = useParams();
@@ -15,6 +16,11 @@ function Quiz() {
   const changeNumHandler = (num: number) => {
     navigate(`/quiz/${num}`);
   };
+
+  const submitHandler = () => {
+    const result = calculateAnswer(questionsList || []);
+    alert(result);
+  }
 
   const answerHandler = (no: number, ans: string) => {
     setQuestionsListAtom((prevQuestions = []) =>
@@ -52,6 +58,7 @@ function Quiz() {
           <input type="radio" name="ans" checked={questionsList && questionsList[Number(id)-1].answer === "False" ? true : false} className="size-4 cursor-pointer" onClick={() => answerHandler(Number(id), "False")} />
           <p>False</p>
         </div>
+        { Number(id) === 10 ? <button className="bg-blue-600 text-white p-2 hover:bg-blue-700" onClick={submitHandler}>Submit</button> : null }
       </div>
     </div>
   )
