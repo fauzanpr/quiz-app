@@ -41,7 +41,7 @@ function Quiz() {
 
       {/* for displaying number navigation */}
       <div className="grid grid-cols-10 gap-4 mt-8">
-        {questionsList?.map((q, i) => i+1).map(num => <button className="bg-gray-200 rounded-lg" onClick={() => changeNumHandler(num)}>{num}</button>)}
+        {questionsList?.map((_q, i) => i+1).map(num => <button className={`rounded-lg ${questionsList[num-1].no === Number(id) ? "bg-blue-300" : questionsList[num-1]?.answer ? "bg-green-300" : "bg-gray-200"}`} onClick={() => changeNumHandler(num)}>{num}</button>)}
       </div>
 
       {/* for displaying quiz */}
