@@ -3,7 +3,7 @@ import Timer from "../../_global/components/Timer"
 import { useNavigate, useParams } from "react-router-dom";
 import { useAtom } from "jotai";
 import { questionsListAtom } from "../store/questions";
-import { calculateAnswer } from "../utils/calculateAnswer";
+import { calculateAnswer, calculateFilled } from "../utils/calculateAnswer";
 
 function Quiz() {
   const { id } = useParams();
@@ -42,11 +42,12 @@ function Quiz() {
       <div className="grid grid-cols-10 gap-4 mt-8">
         {questionsList?.map((_q, i) => i+1).map(num => <button className={`rounded-lg ${questionsList[num-1].no === Number(id) ? "bg-blue-300" : questionsList[num-1]?.answer ? "bg-green-300" : "bg-gray-200"}`} onClick={() => changeNumHandler(num)}>{num}</button>)}
       </div>
+      <p>Terjawab: { calculateFilled(questionsList || []) } dari { questionsList?.length }</p>
 
       {/* for displaying quiz */}
       <div className="flex flex-col gap-4">
         <div>
-          <p className="font-medium underline">Soal {Number(id)}/10</p>
+          <p className="font-medium underline">Soal {Number(id)}/{questionsList?.length}</p>
           {questionsList && <p dangerouslySetInnerHTML={{ __html: questionsList[Number(id) - 1]?.question }} className="text-lg" />}
         </div>
         <div className="flex items-center gap-2 text-lg">
