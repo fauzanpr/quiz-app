@@ -41,7 +41,7 @@ function Quiz() {
 
       {/* for displaying number navigation */}
       <div className="grid grid-cols-10 gap-4 mt-8">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => <button className="bg-gray-200 rounded-lg" onClick={() => changeNumHandler(num)}>{num}</button>)}
+        {questionsList?.map((q, i) => i+1).map(num => <button className="bg-gray-200 rounded-lg" onClick={() => changeNumHandler(num)}>{num}</button>)}
       </div>
 
       {/* for displaying quiz */}
