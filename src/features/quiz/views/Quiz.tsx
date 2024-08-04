@@ -6,7 +6,7 @@ import { questionsListAtom } from "../store/questions";
 
 function Quiz() {
   const { id } = useParams();
-  const [questionsList] = useAtom(questionsListAtom);
+  const [questionsList, setQuestionsListAtom] = useAtom(questionsListAtom);
   const navigate = useNavigate();
   useEffect(() => {
     console.log(questionsList);
@@ -14,6 +14,14 @@ function Quiz() {
 
   const changeNumHandler = (num: number) => {
     navigate(`/quiz/${num}`);
+  };
+
+  const answerHandler = (no: number, ans: string) => {
+    setQuestionsListAtom((prevQuestions = []) =>
+      prevQuestions.map(question =>
+        question.no === no ? { ...question, answer: ans } : question
+      )
+    );
   };
 
   // will check resume quiz
@@ -34,14 +42,14 @@ function Quiz() {
       <div className="flex flex-col gap-4">
         <div>
           <p className="font-medium underline">Soal {Number(id)}/10</p>
-          { questionsList && <p dangerouslySetInnerHTML={{__html: questionsList[Number(id)-1]?.question}} className="text-lg" /> }
+          {questionsList && <p dangerouslySetInnerHTML={{ __html: questionsList[Number(id) - 1]?.question }} className="text-lg" />}
         </div>
         <div className="flex items-center gap-2 text-lg">
-          <input type="radio" name="ans" className="size-4" />
+          <input type="radio" checked={questionsList && questionsList[Number(id)-1].answer === "True" ? true : false} name="ans" className="size-4 cursor-pointer" onClick={() => answerHandler(Number(id), "True")} />
           <p>True</p>
         </div>
         <div className="flex items-center gap-2 text-lg">
-          <input type="radio" name="ans" className="size-4 cursor-pointer" />
+          <input type="radio" name="ans" checked={questionsList && questionsList[Number(id)-1].answer === "False" ? true : false} className="size-4 cursor-pointer" onClick={() => answerHandler(Number(id), "False")} />
           <p>False</p>
         </div>
       </div>
