@@ -4,15 +4,17 @@ import axios from "axios"
 import { useAtomValue } from "jotai";
 import { reqAtom } from "../store/enable";
 import { ApiResponse } from "../../../core/models/auth";
+import { amountAtom } from "../store/params";
 
 function useGetQuest() {
     const req = useAtomValue(reqAtom);
+    const amount = useAtomValue(amountAtom);
     const query = useQuery({
         queryKey: ["question"],
         queryFn: () => {
             return axios.get<ApiResponse>(services.questionRequest, {
                 params: {
-                    amount: 10,
+                    amount: amount,
                     token: localStorage.getItem("token"),
                     type: "boolean"
                 }

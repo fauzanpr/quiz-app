@@ -6,10 +6,12 @@ import { useEffect } from "react";
 import { questionsListAtom } from "../store/questions";
 import toast from "react-hot-toast";
 import { timerAtom } from "../../_global/store/timer";
+import { amountAtom } from "../store/params";
 
 function LandingQuiz() {
     const setReqAtom = useSetAtom(reqAtom);
     const [timer, setTimerAtom] = useAtom(timerAtom);
+    const [amount, setAmountAtom] = useAtom(amountAtom);
     const [questionsList, setQuestionsListAtom] = useAtom(questionsListAtom);
     const navigate = useNavigate();
     const { questions, isLoading, isSuccess, response } = useGetQuest();
@@ -53,6 +55,10 @@ function LandingQuiz() {
             <div>
                 <p>Inputkan waktu (dalam detik)</p>
                 <input type="number" value={timer} onChange={e => setTimerAtom(Number(e.target.value))} className="border p-2" />
+            </div>
+            <div>
+                <p>Inputkan Jumlah soal</p>
+                <input type="number" value={amount} onChange={e => setAmountAtom(Number(e.target.value))} className="border p-2" />
             </div>
             <button className="bg-blue-700 text-white w-fit px-8 py-2 rounded-lg mx-auto" onClick={startButtonHandler}>{isLoading ? "Memuat soal..." : "Mulai"}</button>
             {localStorage.getItem("ans") ? <button className="bg-green-700 text-white w-fit px-8 py-2 rounded-lg mx-auto" onClick={continueButtonHandler}>Lanjut Kuis Sebelumnya</button> : null}

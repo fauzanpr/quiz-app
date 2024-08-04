@@ -60,7 +60,7 @@ function Quiz() {
           <input type="radio" name="ans" checked={questionsList && questionsList[Number(id) - 1].answer === "False" ? true : false} className="size-4 cursor-pointer" onClick={() => answerHandler(Number(id), "False")} />
           <p>False</p>
         </div>
-        {Number(id) === 10 ? <button className="bg-blue-600 text-white p-2 hover:bg-blue-700" onClick={submitHandler}>Submit</button> : null}
+        {Number(id) === questionsList?.length ? <button className="bg-blue-600 text-white p-2 hover:bg-blue-700" onClick={submitHandler}>Submit</button> : null}
       </div>
     </div>
   )
