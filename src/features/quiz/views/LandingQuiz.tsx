@@ -68,7 +68,7 @@ function LandingQuiz() {
             <button className="bg-blue-700 text-white w-fit px-8 py-2 rounded-lg mx-auto" onClick={startButtonHandler}>{isLoading ? "Memuat soal..." : "Mulai"}</button>
             {localStorage.getItem("ans") ? <button className="bg-green-700 text-white w-fit px-8 py-2 rounded-lg mx-auto" onClick={continueButtonHandler}>Lanjut Kuis Sebelumnya</button> : null}
 
-            <p className="hover:underline cursor-pointer" onClick={logoutHandler}>Logout</p>
+            <p className="hover:underline cursor-pointer text-red-800 w-fit mx-auto" onClick={logoutHandler}>Logout</p>
         </div>
     )
 }
