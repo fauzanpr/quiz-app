@@ -3,14 +3,17 @@ import { questionsListAtom } from "../store/questions";
 import { calculateAnswer, calculateFalseAnswer, calculateFilled } from "../utils/calculateAnswer";
 import { useNavigate } from "react-router-dom";
 import { reqAtom } from "../store/enable";
+import { timerAtom } from "../../_global/store/timer";
 
 function EndQuiz() {
   const [questionsList, setQuestionsListAtom] = useAtom(questionsListAtom);
   const setReq = useSetAtom(reqAtom);
+  const setTimer = useSetAtom(timerAtom);
   const navigate = useNavigate();
   const backMenuHandler = () => {
     setReq(false);
     setQuestionsListAtom([]);
+    setTimer(10);
     navigate("/app");
   };
   return (

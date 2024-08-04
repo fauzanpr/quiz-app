@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { questionsListAtom } from "../store/questions";
 import toast from "react-hot-toast";
+import { timerAtom } from "../../_global/store/timer";
 
 function LandingQuiz() {
     const setReqAtom = useSetAtom(reqAtom);
+    const [timer, setTimerAtom] = useAtom(timerAtom);
     const [questionsList, setQuestionsListAtom] = useAtom(questionsListAtom);
     const navigate = useNavigate();
     const { questions, isLoading, isSuccess, response } = useGetQuest();
@@ -39,6 +41,10 @@ function LandingQuiz() {
     return (
         <div className="bg-gray-50 w-1/3 mx-auto my-4 p-4 flex flex-col gap-4 text-center">
             <p>Bersedia mulai kuis?</p>
+            <div>
+                <p>Inputkan waktu (dalam detik)</p>
+                <input type="number" value={timer} onChange={e => setTimerAtom(Number(e.target.value))} className="border p-2" />
+            </div>
             <button className="bg-blue-700 text-white w-fit px-8 py-2 rounded-lg mx-auto" onClick={startButtonHandler}>{isLoading ? "Memuat soal..." : "Mulai"}</button>
         </div>
     )
