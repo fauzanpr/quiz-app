@@ -37,7 +37,7 @@ function LandingQuiz() {
             toast.error("Session telah berakhir, silakan login ulang");
             navigate("/");
         }
-    }, [isSuccess, navigate, questions, questionsList, response, setQuestionsListAtom, setReqAtom])
+    }, [isSuccess, navigate, questions, response, setQuestionsListAtom, setReqAtom])
     return (
         <div className="bg-gray-50 w-1/3 mx-auto my-4 p-4 flex flex-col gap-4 text-center">
             <p>Bersedia mulai kuis?</p>

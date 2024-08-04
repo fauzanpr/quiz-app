@@ -27,6 +27,7 @@ function Quiz() {
         question.no === no ? { ...question, answer: ans } : question
       )
     );
+    localStorage.setItem("ans", JSON.stringify(questionsList));
     if (questionsList) {
       if (Number(id) < questionsList?.length) {
         navigate(`/quiz/${Number(id) + 1}`)
