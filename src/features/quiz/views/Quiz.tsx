@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import Timer from "../../_global/components/Timer"
 import { questionsList } from "../utils/question";
+import { useParams } from "react-router-dom";
 
 function Quiz() {
+  const { id } = useParams();
   useEffect(() => {
     console.log(questionsList);
   }, []);
-  
+
   // will check resume quiz
   if (localStorage.getItem("previous-quiz")) {
     return <></>
@@ -26,8 +28,8 @@ function Quiz() {
       {/* for displaying quiz */}
       <div className="flex flex-col gap-4">
         <div>
-          <p className="font-medium underline">Soal 1/10</p>
-          <p className="text-lg">{questionsList[0]?.question}</p>
+          <p className="font-medium underline">Soal {Number(id)}/10</p>
+          <p dangerouslySetInnerHTML={{__html: questionsList[Number(id)]?.question}} className="text-lg" />
         </div>
         <div className="flex items-center gap-2 text-lg">
           <input type="radio" name="ans" className="size-4" />

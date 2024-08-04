@@ -1,9 +1,11 @@
-// import { atom } from "jotai";
+import { atom } from "jotai";
 
-// export interface IQuestions {
-//     question: string;
-//     correct_answer: string;
-//     status: boolean;
-// }
+export interface IQuestions {
+    no: number;
+    question: string;
+    correct_answer: string;
+    status: boolean;
+    answer?: string;
+}
 
-// export const questions = atom<IQuestions[]>([]);
+export const questionsListAtom = atom<IQuestions[]>();
