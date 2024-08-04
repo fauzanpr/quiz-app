@@ -23,10 +23,12 @@ function useGetQuest() {
     });
 
     const questions = query.data?.data.results;
+    const response = query.data?.data.response_code;
 
     return {
         ...query,
-        questions
+        questions,
+        response
     }
 }
 

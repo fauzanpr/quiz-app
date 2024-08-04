@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useGenerateTokenMutation from "../hooks/useGenerateTokenMutation";
 import { LoginType } from "../../../core/models/auth";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
   const mutation = useGenerateTokenMutation();
@@ -20,6 +21,8 @@ function Login() {
   const loginhandler = () => {
     if (data.email === "user@mail.com" && data.password === "123") {
       mutation.mutateAsync();
+    } else {
+      toast.error("Login gagal");
     }
   }
   return (

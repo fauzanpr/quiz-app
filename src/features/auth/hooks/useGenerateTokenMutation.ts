@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 import { services } from "../../../core/config/app";
 import { ApiResponse } from "../../../core/models/auth";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function useGenerateTokenMutation() {
   const navigate = useNavigate();
@@ -11,12 +12,12 @@ function useGenerateTokenMutation() {
       return axios.post<ApiResponse>(services.tokenRequest);
     },
     onSuccess: (res) => {
-      alert("Berhasil");
       localStorage.setItem("token", res.data.token || "");
+      toast.success("Login berhasil");
       navigate("/app");
     },
     onError: () => {
-      alert("Gagal");
+      toast.error("Login gagal");
     }
   });
 
